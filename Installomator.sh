@@ -337,13 +337,8 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-<<<<<<< HEAD
-VERSION="10.7.3"
-VERSIONDATE="2024-11-14"
-=======
-VERSION="10.7beta"
-VERSIONDATE="2024-11-21"
->>>>>>> 10de0a000877e8d5020aaa764529ea248e9b0b2d
+VERSION="10.7.4"
+VERSIONDATE="2024-11-26"
 
 # MARK: Functions
 
@@ -4116,6 +4111,15 @@ fork)
     downloadURL="$(curl -fs "https://git-fork.com/update/feed.xml" | xpath '(//rss/channel/item/enclosure/@url)[1]' 2>/dev/null | cut -d '"' -f 2)"
     appNewVersion="$(curl -fs "https://git-fork.com/update/feed.xml" | xpath '(//rss/channel/item/enclosure/@sparkle:shortVersionString)[1]' 2>/dev/null | cut -d '"' -f2)"
     expectedTeamID="Q6M7LEEA66"
+    ;;
+foxitpdfreader)
+    name="Foxit PDF Reader"
+    type="pkg"
+    #the packageID versioning seems to be in line with Foxit PDF Editor and does not reflect the installed versionNumber
+    #packageID="com.foxit.pkg.pdfreader"
+    downloadURL="https://www.foxit.com/downloads/latest.html?product=Foxit-Reader&platform=Mac-OS-X"
+    appNewVersion=$(curl -fsSL "https://www.foxit.com/pdf-editor/version-history.html" | awk '/<div class="tab-product hide" id="tab-editor-suite-mac">/,/<\/div>/' | sed -n 's/.*<h3>Version \([0-9.]*\)<\/h3>.*/\1/p' | head -n 1)
+    expectedTeamID="8GN47HTP75"
     ;;
 franz)
     name="Franz"
