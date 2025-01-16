@@ -337,8 +337,8 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="10.7.6"
-VERSIONDATE="2024-11-27"
+VERSION="10.7.7"
+VERSIONDATE="2025-01-16"
 
 # MARK: Functions
 
@@ -4110,6 +4110,13 @@ fork)
     downloadURL="$(curl -fs "https://git-fork.com/update/feed.xml" | xpath '(//rss/channel/item/enclosure/@url)[1]' 2>/dev/null | cut -d '"' -f 2)"
     appNewVersion="$(curl -fs "https://git-fork.com/update/feed.xml" | xpath '(//rss/channel/item/enclosure/@sparkle:shortVersionString)[1]' 2>/dev/null | cut -d '"' -f2)"
     expectedTeamID="Q6M7LEEA66"
+    ;;
+foxitpdfeditor)
+    name="Foxit PDF Editor"
+    type="pkg"
+    downloadURL="https://www.foxit.com/downloads/latest.html?product=Foxit-PDF-Editor-Suite-Pro-Teams-Mac&platform=Mac-OS-X&language=Multi%20Language"
+    appNewVersion=$(curl -fsSL "https://www.foxit.com/pdf-editor/version-history.html" | awk '/<div class="tab-product hide" id="tab-editor-suite-mac">/,/<\/div>/' | sed -n 's/.*<h3>Version \([0-9.]*\)<\/h3>.*/\1/p' | head -n 1)
+    expectedTeamID="8GN47HTP75"
     ;;
 foxitpdfreader)
     name="Foxit PDF Reader"
@@ -9024,7 +9031,15 @@ vectorworks2024update4)
     packageID="net.vectorworks.2024.vectorworksinstaller"
     downloadURL="https://server1-d.vectorworks-online.de/cw/vw2024/mac/Vectorworks%202024%20Update%205.dmg"
     expectedTeamID="LFNG3Q6WX2"
-    ;;venturablocker)
+    ;;vectorworks2025update2)
+    name="Vectorworks 2025 Update 2"
+    appName="Vectorworks 2025 Installationsmanager.app"
+    type="dmg"
+    packageID="net.vectorworks.2024.vectorworksinstaller"
+    downloadURL="https://server1-d.vectorworks-online.de/cw/vw2025/mac/Vectorworks%202025%20Update%202.dmg"
+    expectedTeamID="LFNG3Q6WX2"
+    ;;
+venturablocker)
     name="venturablocker"
     type="pkg"
     packageID="dk.envo-it.venturablocker"
