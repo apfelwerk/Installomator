@@ -348,9 +348,8 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-
-VERSION="10.9.
-VERSIONDATE="2025-06-13"
+VERSION="10.9.3"
+VERSIONDATE="2025-06-24"
 
 # MARK: Functions
 
@@ -3745,6 +3744,14 @@ detectxswift)
     appNewVersion=$(curl -fs https://s3.amazonaws.com/sqwarq.com/AppCasts/dtxswift_release_notes.html | grep Version | head -1 | sed -E 's/.*Version ([0-9.]*)\<.*/\1/')
     expectedTeamID="MAJ5XBJSG3"
     ;;
+determinate)
+    name="Determinate"
+    type="pkg"
+    packageID="systems.determinate.Determinate"
+    downloadURL=$(curl -fsIL https://install.determinate.systems/determinate-pkg/stable/Universal | awk -F' ' '/^location:/ {print $2}')
+    appNewVersion=$(echo "$downloadURL" | cut -d/ -f4)
+    expectedTeamID="X3JQ4VPJZ6"
+    ;;
 devonthink)
     # It's a zipped dmg file, needs function installAppInDmgInZip
     # credit: Søren Theilgaard (@theilgaard)
@@ -6327,6 +6334,20 @@ lunadisplay)
         if [ -f "/Applications/Luna Display.app/Contents/Info.plist" ]; then
             firstPart=$(/usr/bin/defaults read "/Applications/Luna Display.app/Contents/Info.plist" "CFBundleShortVersionString")
             secondPart=$(/usr/bin/defaults read "/Applications/Luna Display.app/Contents/Info.plist" "CFBundleVersion")
+            echo "$firstPart.$secondPart"
+        fi
+    }
+    expectedTeamID="8356ZZ8Y5K"
+    ;;
+lunadisplaysecondary)
+    name="Luna Secondary"
+    type="dmg"
+    downloadURL="https://downloads.astropad.com/luna-secondary/mac/latest"
+    appNewVersion=$(curl -sI "${downloadURL}" | grep -o -E 'location:.*$' | grep -o -E '\d+\.\d+\.\d+\.\d+')
+    appCustomVersion(){
+        if [ -f "/Applications/Luna Secondary.app/Contents/Info.plist" ]; then
+            firstPart=$(/usr/bin/defaults read "/Applications/Luna Secondary.app/Contents/Info.plist" "CFBundleShortVersionString")
+            secondPart=$(/usr/bin/defaults read "/Applications/Luna Secondary.app/Contents/Info.plist" "CFBundleVersion")
             echo "$firstPart.$secondPart"
         fi
     }

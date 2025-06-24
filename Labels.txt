@@ -241,6 +241,7 @@ deon-onprem
 depnotify
 desktoppr
 detectxswift
+determinate
 devonthink
 dialog
 dialpad
@@ -509,6 +510,7 @@ lucidlink
 lucifer
 lulu
 lunadisplay
+lunadisplaysecondary
 macadminspython
 maccyapp
 macfuse
