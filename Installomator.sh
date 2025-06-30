@@ -348,8 +348,8 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="10.9.3"
-VERSIONDATE="2025-06-24"
+VERSION="10.9.4"
+VERSIONDATE="2025-06-30"
 
 # MARK: Functions
 
@@ -9316,12 +9316,12 @@ starface81x)
     expectedTeamID="Q965D3UXEW"
     versionKey="CFBundleVersion"
     ;;
-starface90x)
+starface9x)
     name="STARFACE"
     # Downloads the latest 9.0.x version of the STARFACE Client. The client depends on the version of the PBX, so the correct version should be selected for installation
     type="dmg"
-    downloadURL=$(curl -fs "https://www.starface-cdn.de/starface/clients/mac/appcast.xml" | grep -i 'enclosure ' | grep -i 'url=' | grep -m 1 "9.0" | cut -d '"' -f 10)
-    appNewVersion=$(curl -fs "https://www.starface-cdn.de/starface/clients/mac/appcast.xml" | grep -i 'enclosure ' | grep -i 'url=' | grep -m 1 "9.0" | cut -d '"' -f 4)
+    downloadURL=$(curl -fs "https://www.starface-cdn.de/starface/clients/mac/appcast.xml" | grep -i 'enclosure ' | grep -i 'url=' | grep -m 1 "9" | cut -d '"' -f 10)
+    appNewVersion=$(curl -fs "https://www.starface-cdn.de/starface/clients/mac/appcast.xml" | grep -i 'enclosure ' | grep -i 'url=' | grep -m 1 "9" | cut -d '"' -f 4)
     expectedTeamID="Q965D3UXEW"
     versionKey="CFBundleVersion"
     ;;
@@ -10308,7 +10308,8 @@ vectorworks2024update4)
     packageID="net.vectorworks.2024.vectorworksinstaller"
     downloadURL="https://server1-d.vectorworks-online.de/cw/vw2024/mac/Vectorworks%202024%20Update%205.dmg"
     expectedTeamID="LFNG3Q6WX2"
-    ;;vectorworks2025update2)
+    ;;
+vectorworks2025update2)
     name="Vectorworks 2025 Update 2"
     appName="Vectorworks 2025 Installationsmanager.app"
     type="dmg"

@@ -852,7 +852,7 @@ sqlprostudio
 starface72x
 starface73x
 starface81x
-starface90x
+starface9x
 starfaceuccclient
 stats
 steelseriesengine
@@ -965,6 +965,7 @@ vectorworks2023sp7
 vectorworks2023sp8
 vectorworks2024update3
 vectorworks2024update4
+vectorworks2025update2
 venturablocker
 veracrypt
 vfx
