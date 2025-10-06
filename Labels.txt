@@ -58,6 +58,7 @@ ape
 apparency
 appcleaner
 applenyfonts
+appleprovideoformats
 applesfarabic
 applesfcompact
 applesfmono
@@ -78,7 +79,6 @@ atext
 atextlegacy
 atlassiancompanion
 audacity
-authydesktop
 autodeskfusion360admininstall
 autodmg
 automounter
@@ -106,12 +106,11 @@ betterdisplay
 bettertouchtool
 beyondcomparepro
 bibdesk
+bimcollabzoom
 bitrix24
 bitwarden
 bitwigstudio
 blender
-bluejeans
-bluejeanswithaudiodriver
 boop
 boxdrive
 boxsync
@@ -191,6 +190,7 @@ cinema4d
 cinema4d2023
 cinema4d2024
 cinema4d2025
+cinema4d2026
 cisdem-documentreader
 citrixworkspace
 cleartouchcollage
@@ -213,7 +213,6 @@ coderunner
 colourcontrastanalyser
 connectfonts
 cormorant
-craftmanager
 craftmanagerforsketch
 crashplan
 crashplansmb
@@ -239,6 +238,7 @@ deon-onprem
 depnotify
 desktoppr
 detectxswift
+determinate
 devonthink
 dialog
 dialpad
@@ -247,7 +247,6 @@ discord
 diskdrill
 diskspace
 displaylinkmanager
-displaylinkmanagergraphicsconnectivity
 docker
 dockutil
 dragonframe5
@@ -281,6 +280,7 @@ element
 elgatocamerahub
 elgatostreamdeck
 emacs
+enpass
 enteauth
 epicgameslauncher
 eposconnect
@@ -301,9 +301,9 @@ fantastical
 fastscripts
 favro
 fellow
+fierycommandworkstation
 figma
 filemakerpro
-filezilla
 finaldraft11
 finaldraft12
 finaldraft13
@@ -325,6 +325,8 @@ flycut
 fontbase
 fontexplorer
 fork
+foxitpdfeditor
+foxitpdfreader
 franz
 freeplane
 front
@@ -504,9 +506,12 @@ lucidlink
 lucifer
 lulu
 lunadisplay
+lunadisplaysecondary
 macadminspython
 maccyapp
 macfuse
+macgiro13
+macgiro14
 macoslaps
 macpass
 macports
@@ -654,6 +659,7 @@ omnioutliner5
 omniplan3
 omniplan4
 omnipresence
+omnissahorizonclient
 onionshare
 onlyofficedesktop
 onscreencontrol
@@ -801,6 +807,7 @@ sipgateclinq
 sirimote
 sizeup
 sketch
+sketchup2024
 sketchupviewer
 skim
 skype
@@ -811,12 +818,16 @@ smartgit
 smartsheet
 smartsvn
 snagit
+snagit
 snagit2019
 snagit2020
 snagit2021
 snagit2022
 snagit2023
 snagit2024
+snagit2025
+snapgene
+snapgeneviewer
 soapuiopensource
 sococo
 softubecentral
@@ -842,7 +853,7 @@ sqlprostudio
 starface72x
 starface73x
 starface81x
-starface90x
+starface9x
 starfaceuccclient
 stats
 steelseriesengine
@@ -858,6 +869,7 @@ suitestudio
 supercollider
 superhuman
 supportapp
+supportapphelper
 surfdrive
 suspiciouspackage
 swiftdialog
@@ -942,6 +954,19 @@ uviportal
 uviworkstation
 vagrant
 vanilla
+vectorworks2021sp5
+vectorworks2022sp6
+vectorworks2023sp1
+vectorworks2023sp2
+vectorworks2023sp3
+vectorworks2023sp4
+vectorworks2023sp5
+vectorworks2023sp6
+vectorworks2023sp7
+vectorworks2023sp8
+vectorworks2024update3
+vectorworks2024update4
+vectorworks2025update2
 venturablocker
 veracrypt
 vfx
@@ -967,12 +992,14 @@ vscodium
 vysor
 wacomdrivers
 wallyezflash
+warp
 wavescentral
 weasis
 webex
 webexmeetings
 webexteams
 webextoolsremoval
+webexvdiplugin
 wechat
 weprint
 whatroute
