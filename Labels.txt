@@ -808,6 +808,7 @@ sirimote
 sizeup
 sketch
 sketchup2024
+sketchup2026
 sketchupviewer
 skim
 skype
