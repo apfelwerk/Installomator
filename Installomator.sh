@@ -349,7 +349,7 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
     fi
 fi
 VERSION="10.9.12"
-VERSIONDATE="2025-11-03"
+VERSIONDATE="2025-11-04"
 
 # MARK: Functions
 
@@ -1894,6 +1894,26 @@ adobereaderdc-update)
     expectedTeamID="JQ525L2MZD"
     blockingProcesses=( "Acrobat Pro DC" "AdobeAcrobat" "AdobeReader" "Distiller" )
     Company="Adobe"
+    ;;
+affinityapp)
+    name="Affinity"
+    type="dmg"
+    appName="Affinity.app"
+    curlOptions=(
+        -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15"
+        -H "accept-encoding: gzip, deflate, br"
+        -H "Referrer Policy: strict-origin-when-cross-origin"
+        -H "upgrade-insecure-requests: 1"
+        -H "sec-fetch-dest: document"
+        -H "sec-gpc: 1"
+        -H "sec-fetch-user: ?1"
+        -H "accept-language: en-US,en;q=0.9"
+        -H "accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+        -H "sec-fetch-mode: navigate"
+    )
+    downloadURL="https://desktop-release.canva.com/Affinity-latest.dmg"
+    appNewVersion=$( curl -fsIL "${curlOptions[@]}" "$downloadURL" | awk 'tolower($1)=="location:" {print $2}' | tr -d '\r' | sed -E 's/.*\/[A-Za-z]*-([0-9.]*)-*.*\.dmg/\1/g' | tail -n1 )
+    expectedTeamID="5HD2ARTBFS"
     ;;
 affinitydesigner2)
     name="Affinity Designer 2"
