@@ -28,7 +28,6 @@ adobereaderdc-update
 affinitydesigner2
 affinityphoto2
 affinitypublisher2
-affinityapp
 aftermath
 aircall
 airflow
