@@ -25,6 +25,7 @@ adobedigitaleditions
 adobereaderdc
 adobereaderdc-install
 adobereaderdc-update
+affinityapp
 affinitydesigner2
 affinityphoto2
 affinitypublisher2
@@ -1017,6 +1018,7 @@ vectorworks2023sp8
 vectorworks2024update3
 vectorworks2024update4
 vectorworks2025update2
+vectorworks2025update7
 venturablocker
 veracrypt
 vernierspectralanalysis

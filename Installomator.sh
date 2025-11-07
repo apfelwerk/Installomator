@@ -348,8 +348,8 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="10.9.12"
-VERSIONDATE="2025-11-05"
+VERSION="10.9.13"
+VERSIONDATE="2025-11-07"
 
 # MARK: Functions
 
@@ -1912,6 +1912,14 @@ adobereaderdc-update)
     expectedTeamID="JQ525L2MZD"
     blockingProcesses=( "Acrobat Pro DC" "AdobeAcrobat" "AdobeReader" "Distiller" )
     Company="Adobe"
+    ;;
+affinityapp)
+    name="Affinity"
+    type="dmg"
+    appName="Affinity.app"
+    downloadURL="https://downloads.affinity.studio/Affinity.dmg"
+    appNewVersion=""
+    expectedTeamID="5HD2ARTBFS"
     ;;
 affinitydesigner2)
     name="Affinity Designer 2"
@@ -10784,6 +10792,14 @@ vectorworks2025update2)
     type="dmg"
     packageID="net.vectorworks.2024.vectorworksinstaller"
     downloadURL="https://server1-d.vectorworks-online.de/cw/vw2025/mac/Vectorworks%202025%20Update%202.dmg"
+    expectedTeamID="LFNG3Q6WX2"
+    ;;
+vectorworks2025update7)
+    name="Vectorworks 2025 Update 7"
+    appName="Vectorworks 2025 Installationsmanager.app"
+    type="dmg"
+    packageID="net.vectorworks.2025.vectorworksinstaller"
+    downloadURL="https://server1-d.vectorworks-online.de/cw/vw2025/mac/Vectorworks%202025%20Update%207.dmg"
     expectedTeamID="LFNG3Q6WX2"
     ;;
 venturablocker)
