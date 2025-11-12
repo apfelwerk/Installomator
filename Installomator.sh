@@ -348,7 +348,7 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="10.9.13"
+VERSION="10.9.14"
 VERSIONDATE="2025-11-12"
 
 # MARK: Functions
@@ -11069,7 +11069,8 @@ vectorworks2024update4)
     packageID="net.vectorworks.2024.vectorworksinstaller"
     downloadURL="https://server1-d.vectorworks-online.de/cw/vw2024/mac/Vectorworks%202024%20Update%204.dmg"
     expectedTeamID="LFNG3Q6WX2"
-    ;;vectorworks2024update5)
+    ;;
+vectorworks2024update5)
     name="Vectorworks 2024 Update 5"
     appName="Vectorworks 2024 installieren.app"
     type="dmg"
@@ -11091,6 +11092,14 @@ vectorworks2025update7)
     type="dmg"
     packageID="net.vectorworks.2025.vectorworksinstaller"
     downloadURL="https://server1-d.vectorworks-online.de/cw/vw2025/mac/Vectorworks%202025%20Update%207.dmg"
+    expectedTeamID="LFNG3Q6WX2"
+    ;;
+vectorworks2026update1)
+    name="Vectorworks 2026 Update 1"
+    appName="Vectorworks 2026 Installationsmanager.app"
+    type="dmg"
+    packageID="net.vectorworks.2026.vectorworksinstaller"
+    downloadURL="https://server1-d.vectorworks-online.de/cw/vw2026/mac/Vectorworks%202026%20Update%201.dmg"
     expectedTeamID="LFNG3Q6WX2"
     ;;
 venturablocker)

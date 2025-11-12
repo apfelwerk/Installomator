@@ -1043,8 +1043,10 @@ vectorworks2023sp7
 vectorworks2023sp8
 vectorworks2024update3
 vectorworks2024update4
+vectorworks2024update5
 vectorworks2025update2
 vectorworks2025update7
+vectorworks2026update1
 venturablocker
 veracrypt
 veracrypt-fuse-t
