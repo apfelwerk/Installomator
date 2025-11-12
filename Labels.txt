@@ -25,7 +25,6 @@ adobedigitaleditions
 adobereaderdc
 adobereaderdc-install
 adobereaderdc-update
-affinityapp
 affinitydesigner2
 affinityphoto2
 affinitypublisher2
@@ -56,6 +55,7 @@ anastasiysextensionmanager
 androidfiletransfer
 androidstudio
 anotherredisdesktopmanager
+antconc
 anydesk
 apachedirectorystudio
 apachenetbeans
@@ -80,6 +80,7 @@ arq7
 arturiamcc
 arturiasoftwarecenter
 asana
+aspera
 asperaconnect
 atext
 atextlegacy
@@ -112,11 +113,14 @@ betterdisplay
 bettertouchtool
 beyondcomparepro
 bibdesk
-bimcollabzoom
 bitrix24
 bitwarden
 bitwigstudio
+blackhole16ch
+blackhole2ch
+blackhole64ch
 blender
+blitzit
 boop
 boxdrive
 boxsync
@@ -130,6 +134,7 @@ bruno
 bugdom
 burpsuitecommunityedition
 burpsuiteprofessional
+busycal
 busycontacts
 buttercup
 caffeine
@@ -149,6 +154,7 @@ camtasia2025
 camunda
 canva
 carboncopycloner
+cardpresso
 catoclient
 charles
 chatgpt
@@ -234,6 +240,7 @@ cytoscape
 daisydisk
 dangerzone
 darktable
+daruma
 daylite
 dbeaverce
 dbvisualizer
@@ -258,6 +265,7 @@ diskspace
 displaylinkmanager
 docker
 dockutil
+doctolib
 dracoon
 dragonframe2024
 dragonframe2025
@@ -265,7 +273,9 @@ dragonframe5
 drawio
 drift
 dropbox
+dropboxenterprise
 droplr
+drracket
 druvainsync
 dstny
 duckduckgo
@@ -284,7 +294,7 @@ eclipsetemurin17
 eclipsetemurin21
 eclipsetemurin8
 ecosiabrowser
-egnyte
+editshare-connect
 egnytecore
 egnytewebedit
 elasticvue
@@ -307,9 +317,11 @@ eul
 evercast
 evernote
 everweb
+examplify
 exelbanstats
 exifrenamer
 expressvpn
+extensisconnect
 facebookmessenger
 fantastical
 fastscripts
@@ -319,6 +331,7 @@ fierycommandworkstation
 figma
 filemakerpro
 filmlab
+finalcutprocontent
 finaldraft11
 finaldraft12
 finaldraft13
@@ -342,7 +355,6 @@ fontbase
 fontexplorer
 fork
 foxitpdfeditor
-foxitpdfreader
 franz
 freeplane
 front
@@ -413,6 +425,7 @@ hype
 hyper
 i1profiler
 ibarcoder
+ibmaspera
 ibmnotifier
 ice
 icons
@@ -446,6 +459,7 @@ jamfcheck
 jamfconnect
 jamfconnectconfiguration
 jamfconnectlaunchagent
+jamfconnectlogin
 jamfcpr
 jamfmigrator
 jamfpppcutility
@@ -517,7 +531,9 @@ linear
 linearmouse
 livereplayer
 lmstudio
+logighub
 logioptions
+logitechghub
 logitechoptions
 logitechoptionsplus
 logitechoptionsplusoffline
@@ -532,17 +548,15 @@ lucidlink
 lucifer
 lulu
 lunadisplay
-lunadisplaysecondary
 macadminspython
 maccyapp
 macfuse
-macgiro13
-macgiro14
 macoslaps
 macpass
 macports
 mactex
 mactracker
+macvector
 magicbullet
 mailmate
 mailtooutlook
@@ -554,6 +568,7 @@ marathoninfinity
 masterfader
 masv
 mattermost
+maxcycling74
 maxonapp
 mdmwatchdog
 meetingbar
@@ -655,6 +670,7 @@ netnewswire
 netspot
 networksharemounter
 nextcloud
+nextcloudclassic
 nextcloudtalk
 nodejs
 nodejslts
@@ -677,6 +693,7 @@ obs
 obsbotcenter
 obsbotwebcam
 obsidian
+obsioscamera
 odrive
 oktaverify
 ollama
@@ -742,6 +759,7 @@ portingkit
 postgresapp
 postman
 powermonitor
+praat
 prism10
 prism9
 pritunl
@@ -755,6 +773,7 @@ promiseutility
 promiseutilityr
 proofpointautoupdater
 propresenter7
+protondrive
 protonvpn
 proxyman
 prune
@@ -856,14 +875,12 @@ smartgit
 smartsheet
 smartsvn
 snagit
-snagit
 snagit2019
 snagit2020
 snagit2021
 snagit2022
 snagit2023
 snagit2024
-snagit2025
 snapgene
 snapgeneviewer
 soapuiopensource
@@ -891,8 +908,8 @@ sqlprostudio
 starface72x
 starface73x
 starface81x
+starface90x
 starface91x
-starface9x
 starfaceuccclient
 stats
 steelseriesengine
@@ -909,8 +926,7 @@ sublimetext
 suitestudio
 supercollider
 superhuman
-supportapp
-supportapphelper
+superwhisper
 surfdrive
 suspiciouspackage
 swiftdialog
@@ -929,6 +945,7 @@ tabby
 tableaudesktop
 tableaupublic
 tableaureader
+tableplus
 tageditor
 tailscale
 talkdeskcxcloud
@@ -1005,22 +1022,10 @@ uviportal
 uviworkstation
 vagrant
 vanilla
-vectorworks2021sp5
-vectorworks2022sp6
-vectorworks2023sp1
-vectorworks2023sp2
-vectorworks2023sp3
-vectorworks2023sp4
-vectorworks2023sp5
-vectorworks2023sp6
-vectorworks2023sp7
-vectorworks2023sp8
-vectorworks2024update3
-vectorworks2024update4
-vectorworks2025update2
-vectorworks2025update7
 venturablocker
 veracrypt
+veracrypt-fuse-t
+veracrypt-macfuse
 vernierspectralanalysis
 vfx
 viennaassistant
@@ -1060,6 +1065,7 @@ weprint
 whatroute
 whatsapp
 whimsical
+whiterabbit
 windsurf
 wireshark
 wordservice
