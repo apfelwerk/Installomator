@@ -1,5 +1,5 @@
-vectorworks2026update1)
-    name="Vectorworks 2026 Update 1"
+vectorworks2026update2)
+    name="Vectorworks 2026 Update 2"
     appName="Vectorworks 2026 Installationsmanager.app"
     type="dmg"
     packageID="net.vectorworks.2026.vectorworksinstaller"
