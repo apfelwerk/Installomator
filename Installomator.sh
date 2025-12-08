@@ -349,7 +349,7 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
     fi
 fi
 VERSION="10.9.14"
-VERSIONDATE="2025-11-12"
+VERSIONDATE="2025-12-08"
 
 # MARK: Functions
 
@@ -11100,6 +11100,14 @@ vectorworks2026update1)
     type="dmg"
     packageID="net.vectorworks.2026.vectorworksinstaller"
     downloadURL="https://server1-d.vectorworks-online.de/cw/vw2026/mac/Vectorworks%202026%20Update%201.dmg"
+    expectedTeamID="LFNG3Q6WX2"
+    ;;
+vectorworks2026update2)
+    name="Vectorworks 2026 Update 2"
+    appName="Vectorworks 2026 Installationsmanager.app"
+    type="dmg"
+    packageID="net.vectorworks.2026.vectorworksinstaller"
+    downloadURL="https://server1-d.vectorworks-online.de/cw/vw2026/mac/Vectorworks%202026%20Update%202.dmg
     expectedTeamID="LFNG3Q6WX2"
     ;;
 venturablocker)
