@@ -7,4 +7,3 @@ scansnaphome)
     downloadURL="https://origin.pfultd.com/downloads/ss/sshinst/m-$downloadURLVar1/MacSSHOfflineInstaller_$downloadURLVar2.dmg"
     expectedTeamID="XW4U7W2E9L"
     ;;
-    
