@@ -1617,6 +1617,78 @@ valuesfromarguments)
     appNewVersion=$(curl -fs -L 'https://support-portal.8x8.com/helpcenter/viewArticle.html?d=8bff4970-6fbf-4daf-842d-8ae9b533153d' | grep -m 1 -o "https.*dmg" | sed 's/\"//' | awk '{print $1}' | sed -E 's/.*-v([0-9\.]*)[-\.]*.*/\1/' )
     expectedTeamID="FC967L3QRG"
     ;;
+ape)
+    name="ApE"
+    type="dmg"
+    downloadURL="https://jorgensen.biology.utah.edu/wayned/ape/Download/Mac/ApE_OSX_modern_current.dmg"
+    appNewVersion="$(curl -fsL "https://jorgensen.biology.utah.edu/wayned/ape/" | grep -Eo 'ApE \(v[0-9]+\.[0-9]+\.[0-9]+' | sed -E 's/ApE \(v//')"
+    expectedTeamID="F5459JB4SG"
+    appName="ApE.app"
+    blockingProcesses=( "ApE" )
+    ;;
+dcp-o-matic|dcpomatic|dcp-o-matic2|dcpomatic2)
+    name="DCP-o-matic 2"
+    type="dmg"
+    appNewVersion=$(curl -fs https://dcpomatic.com/download | grep "Stable release: " | awk -F '</p>' '{print $1}' | grep -o -e "[0-9.]*")
+    downloadURL="https://dcpomatic.com/dl.php?id=osx-10.10-main&version=$appNewVersion&paid=0"
+	versionKey="CFBundleVersion"
+    expectedTeamID="R82DXSR997"
+    ;;
+hudlsportscode)
+    name="Hudl Sportscode"
+    type="appInDmgInZip"
+    appNewVersion=$(curl -fs https://www.hudl.com/downloads/elite | grep -A 1 "Download Hudl Sportscode" | grep -o -e "[0-9.]*")
+    downloadURL="https://sportscode64-updates.s3.amazonaws.com/PublicReleaseDmgs/HudlSportscode-$appNewVersion.dmg.zip"
+	versionKey="CFBundleVersion"
+    expectedTeamID="4M6T2C723P"
+    ;;
+hudlstudio)
+    name="Studio"
+    type="dmg"
+    appNewVersion=$(curl -fs https://www.hudl.com/downloads/elite | grep -A 1 "Download Studio" | grep -o -e "[0-9.]*")
+    downloadURL="https://studio-releases.s3.amazonaws.com/Studio-$appNewVersion.dmg"
+	versionKey="CFBundleVersion"
+    expectedTeamID="2YLQ7PASUE"
+    ;;
+synergybaseball)
+    name="Synergy Baseball"
+    type="dmg"
+    downloadURL="$( echo https://www.synergysportstech.com/baseballclient/MacOS/$(curl -s https://www.synergysportstech.com/baseballclient/MacOS/default.htm | grep dmg | grep -o 'href="[^"]*' | head -1 | awk -F '="' '{print $NF}') )"
+    appNewVersion=$(curl -fs https://www.synergysportstech.com/baseballclient/MacOS/default.htm | grep Version: | grep -o -e "[0-9.]*")
+	versionKey="CFBundleVersion"
+    expectedTeamID="BATB6XS52B"
+    ;;
+
+synergybasketball)
+    name="Synergy Basketball"
+    type="dmg"
+    downloadURL="$( echo https://www.synergysportstech.com/Apps/Basketball/production/macOS/$(curl -s https://www.synergysportstech.com/Apps/Basketball/production/macOS/default.htm | grep dmg | grep -o 'href="[^"]*' | head -1 | awk -F '="' '{print $NF}') )"
+    appNewVersion=$(curl -fs https://www.synergysportstech.com/Apps/Basketball/production/macOS/default.htm | grep Version: | grep -o -e "[0-9.]*")
+	versionKey="CFBundleVersion"
+    expectedTeamID="BATB6XS52B"
+    ;;
+synergyeditor|synergyeditorbasketball)
+    name="Synergy Editor"
+    type="dmg"
+    if [[ "$(arch)" == "arm64" ]]; then
+        downloadURL=$( echo https://www.synergysportstech.com/apps/editor/basketball/macos/$(curl -s https://www.synergysportstech.com/apps/editor/basketball/macos/ | grep arm64.dmg | grep -o 'href="[^"]*' | head -1 | awk -F '="' '{print $NF}' ))
+    else
+        downloadURL=$( echo https://www.synergysportstech.com/apps/editor/basketball/macos/$(curl -s https://www.synergysportstech.com/apps/editor/basketball/macos/ | grep x64.dmg | grep -o 'href="[^"]*' | head -1 | awk -F '="' '{print $NF}' ))
+    fi
+    appNewVersion=$(curl -fs https://www.synergysportstech.com/apps/editor/basketball/macos/default.html | grep Version: | grep -o -e "[0-9.]*")
+    versionKey="CFBundleShortVersionString"
+    expectedTeamID="BATB6XS52B"
+    ;;
+synergyvideoexpress)
+    name="Synergy Video Express"
+    type="dmg"
+    relativeDownloadURL="$(curl -fsL https://www.synergysportstech.com/apps/videoexpress/production/macOS/default.htm | grep -Eo 'Synergy_Video_Express_[^"]+\.dmg' | head -1)"
+    downloadURL="https://www.synergysportstech.com/apps/videoexpress/production/macOS/${relativeDownloadURL}"
+    appNewVersion=$(echo "$relativeDownloadURL" | sed -E 's/.*_([0-9]+_[0-9]+_[0-9]+_[0-9]+)\.dmg/\1/' | tr '_' '.')
+    expectedTeamID="BATB6XS52B"
+    appName="Synergy Video Express.app"
+    blockingProcesses=( "Synergy Video Express" )
+    ;;
 abetterfinderattributes7)
     name="A Better Finder Attributes 7"
     type="dmg"
@@ -1793,10 +1865,10 @@ adobereaderdc-update)
       printlog "Found /Applications/Adobe Acrobat Reader.app - Setting readerPath" INFO
       readerPath="/Applications/Adobe Acrobat Reader.app"
     fi
-    if ! [[ `defaults read "$readerPath/Contents/Resources/AcroLocale.plist"` ]]; then
+    if ! defaults read "$readerPath/Contents/Resources/AcroLocale.plist" >/dev/null 2>&1; then
       printlog "Missing locale data, this will cause the updater to fail.  Deleting Adobe Acrobat Reader DC.app and installing fresh." INFO
       rm -Rf "$readerPath"
-      unset $readerPath
+      unset readerPath
     fi
     if [[ -n $readerPath ]]; then
       mkdir -p "/Library/Application Support/Adobe/Acrobat/11.0"
@@ -2227,15 +2299,6 @@ apachenetbeans)
     appNewVersion="$(versionFromGit Friends-of-Apache-NetBeans netbeans-installers)"
     expectedTeamID="3KH8VFSK7Q"
     ;;
-ape)
-    name="ApE"
-    type="dmg"
-    downloadURL="https://jorgensen.biology.utah.edu/wayned/ape/Download/Mac/ApE_OSX_modern_current.dmg"
-    appNewVersion="$(curl -fsL "https://jorgensen.biology.utah.edu/wayned/ape/" | grep -Eo 'ApE \(v[0-9]+\.[0-9]+\.[0-9]+' | sed -E 's/ApE \(v//')"
-    expectedTeamID="F5459JB4SG"
-    appName="ApE.app"
-    blockingProcesses=( "ApE" )
-    ;;
 apparency)
     name="Apparency"
     type="dmg"
@@ -2345,8 +2408,9 @@ archiwareb2go)
     type="pkgInDmg"
     packageID="com.archiware.presstore"
     appNewVersion=$(curl -sf https://www.archiware.com/download-p5 | grep -m 1 "ARCHIWARE P5 Version" | sed "s|.*Version \(.*\) -.*|\\1|")
-    downloadURL=$(appNrVersion=`sed 's/[^0-9]//g' <<< $appNewVersion` && echo https://p5-downloads.s3.amazonaws.com/awpst"$appNrVersion"-darwin.dmg)
-    pkgName=$(appNrVersion=`sed 's/[^0-9]//g' <<< $appNewVersion` && echo P5-Workstation-"$appNrVersion"-Install.pkg)
+    appNrVersion=$(sed 's/[^0-9]//g' <<< "$appNewVersion")
+    downloadURL="https://p5-downloads.s3.amazonaws.com/awpst${appNrVersion}-darwin.dmg"
+    pkgName="P5-Workstation-${appNrVersion}-Install.pkg"
     expectedTeamID="5H5EU6F965"
     # blockingProcesses=( nsd )
     ;;
@@ -2355,8 +2419,9 @@ archiwarepst)
     type="pkgInDmg"
     packageID="com.archiware.presstore"
     appNewVersion=$(curl -sf https://www.archiware.com/download-p5 | grep -m 1 "ARCHIWARE P5 Version" | sed "s|.*Version \(.*\) -.*|\\1|")
-    downloadURL=$(appNrVersion=`sed 's/[^0-9]//g' <<< $appNewVersion` && echo https://p5-downloads.s3.amazonaws.com/awpst"$appNrVersion"-darwin.dmg)
-    pkgName=$(appNrVersion=`sed 's/[^0-9]//g' <<< $appNewVersion` && echo P5-"$appNrVersion"-Install.pkg)
+    appNrVersion=$(sed 's/[^0-9]//g' <<< "$appNewVersion")
+    downloadURL="https://p5-downloads.s3.amazonaws.com/awpst${appNrVersion}-darwin.dmg"
+    pkgName="P5-${appNrVersion}-Install.pkg"
     expectedTeamID="5H5EU6F965"
     # blockingProcesses=( nsd )
     ;;
@@ -3841,14 +3906,6 @@ dbvisualizer)
     expectedTeamID="U9TP5KYV49"
     blockingProcesses=( "DbVisualizer" )
     ;;
-dcp-o-matic|dcpomatic|dcp-o-matic2|dcpomatic2)
-    name="DCP-o-matic 2"
-    type="dmg"
-    appNewVersion=$(curl -fs https://dcpomatic.com/download | grep "Stable release: " | awk -F '</p>' '{print $1}' | grep -o -e "[0-9.]*")
-    downloadURL="https://dcpomatic.com/dl.php?id=osx-10.10-main&version=$appNewVersion&paid=0"
-	versionKey="CFBundleVersion"
-    expectedTeamID="R82DXSR997"
-    ;;
 debookee)
     name="Debookee"
     type="zip"
@@ -4711,6 +4768,16 @@ findanyfile)
     appNewVersion=$(curl -fs "https://findanyfile.app/appcast2.php" | xpath '(//rss/channel/item/enclosure/@sparkle:shortVersionString)[1]' 2>/dev/null | cut -d '"' -f2)
     expectedTeamID="25856V4B4X"
     ;;
+firefox)
+    name="Firefox"
+    type="dmg"
+    downloadURL="https://download.mozilla.org/?product=firefox-latest&os=osx&lang=en-US"
+    firefoxVersions=$(curl -fs "https://product-details.mozilla.org/1.0/firefox_versions.json")
+    appNewVersion=$(getJSONValue "$firefoxVersions" "LATEST_FIREFOX_VERSION")
+    expectedTeamID="43AQ936H96"
+    blockingProcesses=( firefox )
+    printlog "WARNING for ERROR: Label firefox and firefox_intl should not be used. Instead use firefoxpkg and firefoxpkg_intl as per recommendations from Firefox. It's not fully certain that the app actually gets updated here. firefoxpkg and firefoxpkg_intl will have built in updates and make sure the client is updated in the future." REQ
+    ;;
 firefox_da)
     name="Firefox"
     type="dmg"
@@ -4748,22 +4815,22 @@ firefox_intl)
     blockingProcesses=( firefox )
     printlog "WARNING for ERROR: Label firefox and firefox_intl should not be used. Instead use firefoxpkg and firefoxpkg_intl as per recommendations from Firefox. It's not fully certain that the app actually gets updated here. firefoxpkg and firefoxpkg_intl will have built in updates and make sure the client is updated in the future." REQ
     ;;
-firefox)
-    name="Firefox"
-    type="dmg"
-    downloadURL="https://download.mozilla.org/?product=firefox-latest&os=osx&lang=en-US"
-    firefoxVersions=$(curl -fs "https://product-details.mozilla.org/1.0/firefox_versions.json")
-    appNewVersion=$(getJSONValue "$firefoxVersions" "LATEST_FIREFOX_VERSION")
-    expectedTeamID="43AQ936H96"
-    blockingProcesses=( firefox )
-    printlog "WARNING for ERROR: Label firefox and firefox_intl should not be used. Instead use firefoxpkg and firefoxpkg_intl as per recommendations from Firefox. It's not fully certain that the app actually gets updated here. firefoxpkg and firefoxpkg_intl will have built in updates and make sure the client is updated in the future." REQ
-    ;;
 firefoxdeveloperedition)
     name="Firefox Developer Edition"
     type="dmg"
     downloadURL="https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=osx&lang=en-US"
     appNewVersion=$(curl -fsIL "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=osx&lang=en-US&_gl=1*1g4sufp*_ga*OTAwNTc3MjE4LjE2NTM2MDIwODM.*_ga_MQ7767QQQW*MTY1NDcyNTYyNy40LjEuMTY1NDcyNzA2MS4w" | grep -i ^location | cut -d "/" -f7)
     expectedTeamID="43AQ936H96"
+    ;;
+firefoxesr|\
+firefoxesrpkg)
+    name="Firefox"
+    type="pkg"
+    downloadURL="https://download.mozilla.org/?product=firefox-esr-pkg-latest-ssl&os=osx"
+    firefoxVersions=$(curl -fs "https://product-details.mozilla.org/1.0/firefox_versions.json")
+    appNewVersion=$(getJSONValue "$firefoxVersions" "FIREFOX_ESR")
+    expectedTeamID="43AQ936H96"
+    blockingProcesses=( firefox )
     ;;
 firefoxesr_intl)
     # This label will try to figure out the selected language of the user,
@@ -4792,13 +4859,12 @@ firefoxesr_intl)
     blockingProcesses=( firefox )
     printlog "WARNING for ERROR: Label firefox and firefox_intl should not be used. Instead use firefoxpkg and firefoxpkg_intl as per recommendations from Firefox. It's not fully certain that the app actually gets updated here. firefoxpkg and firefoxpkg_intl will have built in updates and make sure the client is updated in the future." REQ
     ;;
-firefoxesr|\
-firefoxesrpkg)
+firefoxpkg)
     name="Firefox"
     type="pkg"
-    downloadURL="https://download.mozilla.org/?product=firefox-esr-pkg-latest-ssl&os=osx"
+    downloadURL="https://download.mozilla.org/?product=firefox-pkg-latest-ssl&os=osx&lang=en-US"
     firefoxVersions=$(curl -fs "https://product-details.mozilla.org/1.0/firefox_versions.json")
-    appNewVersion=$(getJSONValue "$firefoxVersions" "FIREFOX_ESR")
+    appNewVersion=$(getJSONValue "$firefoxVersions" "LATEST_FIREFOX_VERSION")
     expectedTeamID="43AQ936H96"
     blockingProcesses=( firefox )
     ;;
@@ -4825,15 +4891,6 @@ firefoxpkg_intl)
         printlog "Download not found for that language. Using en-US" WARN
         downloadURL="https://download.mozilla.org/?product=firefox-pkg-latest-ssl&os=osx&lang=en-US"
     fi
-    firefoxVersions=$(curl -fs "https://product-details.mozilla.org/1.0/firefox_versions.json")
-    appNewVersion=$(getJSONValue "$firefoxVersions" "LATEST_FIREFOX_VERSION")
-    expectedTeamID="43AQ936H96"
-    blockingProcesses=( firefox )
-    ;;
-firefoxpkg)
-    name="Firefox"
-    type="pkg"
-    downloadURL="https://download.mozilla.org/?product=firefox-pkg-latest-ssl&os=osx&lang=en-US"
     firefoxVersions=$(curl -fs "https://product-details.mozilla.org/1.0/firefox_versions.json")
     appNewVersion=$(getJSONValue "$firefoxVersions" "LATEST_FIREFOX_VERSION")
     expectedTeamID="43AQ936H96"
@@ -5497,22 +5554,6 @@ huddly)
     downloadURL="https://app.huddly.com/download/latest/osx"
     appNewVersion="$(curl -fsIL "${downloadURL}" | grep -i '^content-disposition' | sed -E 's/.*-([0-9]+\.[0-9]+\.[0-9]+)-.*/\1/g')"
     expectedTeamID="J659R47HZT"
-    ;;
-hudlsportscode)
-    name="Hudl Sportscode"
-    type="appInDmgInZip"
-    appNewVersion=$(curl -fs https://www.hudl.com/downloads/elite | grep -A 1 "Download Hudl Sportscode" | grep -o -e "[0-9.]*")
-    downloadURL="https://sportscode64-updates.s3.amazonaws.com/PublicReleaseDmgs/HudlSportscode-$appNewVersion.dmg.zip"
-	versionKey="CFBundleVersion"
-    expectedTeamID="4M6T2C723P"
-    ;;
-hudlstudio)
-    name="Studio"
-    type="dmg"
-    appNewVersion=$(curl -fs https://www.hudl.com/downloads/elite | grep -A 1 "Download Studio" | grep -o -e "[0-9.]*")
-    downloadURL="https://studio-releases.s3.amazonaws.com/Studio-$appNewVersion.dmg"
-	versionKey="CFBundleVersion"
-    expectedTeamID="2YLQ7PASUE"
     ;;
 hype)
     name="Hype4"
@@ -6381,8 +6422,8 @@ lcadvancedvpnclient)
     type="pkgInDmg"
     archiveName="LANCOM Advanced VPN Client.pkg"
     appShortVersion=$(curl -fs https://ftp.lancom.de/LANCOM-Releases/LC-VPN-Client/ | grep "macOS"| tail -1 | sed  "s|.*macOS-\(.*\)-Rel.*|\\1|")
-    appNewVersion=(`sed 's/./&./1' <<< $appShortVersion`)
-    downloadURL=(https://ftp.lancom.de/LANCOM-Releases/LC-VPN-Client/LC-Advanced-VPN-Client-macOS-"${appShortVersion}"-Rel-x86-64.dmg)
+    appNewVersion=$(sed 's/./&./1' <<< "$appShortVersion")
+    downloadURL="https://ftp.lancom.de/LANCOM-Releases/LC-VPN-Client/LC-Advanced-VPN-Client-macOS-${appShortVersion}-Rel-x86-64.dmg"
     blockingProcesses=( "LANCOM Advanced VPN Client" "ncprwsmac" )
     expectedTeamID="LL3KBL2M3A"
     ;;
@@ -10197,53 +10238,16 @@ sync)
     expectedTeamID="7QR39CMJ3W"
     blockingProcesses=( "Sync" "sync-worker.exe" )
     ;;
-synergybaseball)
-    name="Synergy Baseball"
-    type="dmg"
-    downloadURL="$( echo https://www.synergysportstech.com/baseballclient/MacOS/$(curl -s https://www.synergysportstech.com/baseballclient/MacOS/default.htm | grep dmg | grep -o 'href="[^"]*' | head -1 | awk -F '="' '{print $NF}') )"
-    appNewVersion=$(curl -fs https://www.synergysportstech.com/baseballclient/MacOS/default.htm | grep Version: | grep -o -e "[0-9.]*")
-	versionKey="CFBundleVersion"
-    expectedTeamID="BATB6XS52B"
-    ;;
-
-synergybasketball)
-    name="Synergy Basketball"
-    type="dmg"
-    downloadURL="$( echo https://www.synergysportstech.com/Apps/Basketball/production/macOS/$(curl -s https://www.synergysportstech.com/Apps/Basketball/production/macOS/default.htm | grep dmg | grep -o 'href="[^"]*' | head -1 | awk -F '="' '{print $NF}') )"
-    appNewVersion=$(curl -fs https://www.synergysportstech.com/Apps/Basketball/production/macOS/default.htm | grep Version: | grep -o -e "[0-9.]*")
-	versionKey="CFBundleVersion"
-    expectedTeamID="BATB6XS52B"
-    ;;
-synergyeditor|synergyeditorbasketball)
-    name="Synergy Editor"
-    type="dmg"
-    if [[ "$(arch)" == "arm64" ]]; then
-        downloadURL=$( echo https://www.synergysportstech.com/apps/editor/basketball/macos/$(curl -s https://www.synergysportstech.com/apps/editor/basketball/macos/ | grep arm64.dmg | grep -o 'href="[^"]*' | head -1 | awk -F '="' '{print $NF}' ))
-    else
-        downloadURL=$( echo https://www.synergysportstech.com/apps/editor/basketball/macos/$(curl -s https://www.synergysportstech.com/apps/editor/basketball/macos/ | grep x64.dmg | grep -o 'href="[^"]*' | head -1 | awk -F '="' '{print $NF}' ))
-    fi
-    appNewVersion=$(curl -fs https://www.synergysportstech.com/apps/editor/basketball/macos/default.html | grep Version: | grep -o -e "[0-9.]*")
-    versionKey="CFBundleShortVersionString"
-    expectedTeamID="BATB6XS52B"
-    ;;
-synergyvideoexpress)
-    name="Synergy Video Express"
-    type="dmg"
-    relativeDownloadURL="$(curl -fsL https://www.synergysportstech.com/apps/videoexpress/production/macOS/default.htm | grep -Eo 'Synergy_Video_Express_[^"]+\.dmg' | head -1)"
-    downloadURL="https://www.synergysportstech.com/apps/videoexpress/production/macOS/${relativeDownloadURL}"
-    appNewVersion=$(echo "$relativeDownloadURL" | sed -E 's/.*_([0-9]+_[0-9]+_[0-9]+_[0-9]+)\.dmg/\1/' | tr '_' '.')
-    expectedTeamID="BATB6XS52B"
-    appName="Synergy Video Express.app"
-    blockingProcesses=( "Synergy Video Express" )
-    ;;
 synologyactivebackupforbusinessagent)
     name="Synology Active Backup for Business Agent"
     type="pkgInDmg"
     packageID="com.synology.activebackup-agent"
     versionKey="CFBundleVersion"
-    downloadURL=$(appVersion=`curl -sf https://archive.synology.com/download/Utility/ActiveBackupBusinessAgent | grep -m 1 /download/Utility/ActiveBackupBusinessAgent/ | sed "s|.*>\(.*\)<.*|\\1|"` && appShortVersion=`sed 's#.*-\(\)#\1#' <<< $appVersion` && echo https://global.download.synology.com/download/Utility/ActiveBackupBusinessAgent/"$appVersion"/Mac/x86_64/Synology%20Active%20Backup%20for%20Business%20Agent-"$appVersion".dmg)
-    # appNewVersion=$(appVersionP1=`curl -sf https://archive.synology.com/download/Utility/ActiveBackupBusinessAgent | grep -m 1 /download/Utility/ActiveBackupBusinessAgent/ | sed "s|.*>\(.*\)-.*|\\1|"` && sed 's/\(.\{0\}\)./\17/' <<< $appVersionP1)
-    appNewVersion=$(curl -sf https://archive.synology.com/download/Utility/ActiveBackupBusinessAgent | grep -m 1 /download/Utility/ActiveBackupBusinessAgent/ | sed "s|.*>\(.*\)<.*|\\1|" | sed "s#.*-\(\)#\1#")
+    appVersion=$(curl -sf https://archive.synology.com/download/Utility/ActiveBackupBusinessAgent | grep -m 1 /download/Utility/ActiveBackupBusinessAgent/ | sed "s|.*>\(.*\)<.*|\\1|")
+    appShortVersion=$(sed 's#.*-\(\)#\1#' <<< "$appVersion")
+    downloadURL="https://global.download.synology.com/download/Utility/ActiveBackupBusinessAgent/${appVersion}/Mac/x86_64/Synology%20Active%20Backup%20for%20Business%20Agent-${appVersion}.dmg"
+    # appNewVersion=$(appVersionP1=$(curl -sf https://archive.synology.com/download/Utility/ActiveBackupBusinessAgent | grep -m 1 /download/Utility/ActiveBackupBusinessAgent/ | sed "s|.*>\(.*\)-.*|\\1|") && sed 's/\(.\{0\}\)./\17/' <<< "$appVersionP1")
+    appNewVersion="$appShortVersion"
     expectedTeamID="X85BAK35Y4"
     ;;
 synologyassistant)
@@ -10260,9 +10264,11 @@ synologydriveclient)
     type="pkgInDmg"
     # packageID="com.synology.CloudStation"
     versionKey="CFBundleVersion"
-    downloadURL=$(appVersion=`curl -sf https://archive.synology.com/download/Utility/SynologyDriveClient | grep -m 1 /download/Utility/SynologyDriveClient/ | sed "s|.*>\(.*\)<.*|\\1|"` && appShortVersion=`sed 's#.*-\(\)#\1#' <<< $appVersion` && echo https://global.download.synology.com/download/Utility/SynologyDriveClient/"$appVersion"/Mac/Installer/synology-drive-client-"${appShortVersion}".dmg)
-    # appNewVersion=$(appVersionP1=`curl -sf https://archive.synology.com/download/Utility/SynologyDriveClient | grep -m 1 /download/Utility/SynologyDriveClient/ | sed "s|.*>\(.*\)-.*|\\1|"` && sed 's/\(.\{0\}\)./\17/' <<< $appVersionP1)
-    appNewVersion=$(curl -sf https://archive.synology.com/download/Utility/SynologyDriveClient | grep -m 1 /download/Utility/SynologyDriveClient/ | sed "s|.*>\(.*\)<.*|\\1|" | sed "s#.*-\(\)#\1#")
+    appVersion=$(curl -sf https://archive.synology.com/download/Utility/SynologyDriveClient | grep -m 1 /download/Utility/SynologyDriveClient/ | sed "s|.*>\(.*\)<.*|\\1|")
+    appShortVersion=$(sed 's#.*-\(\)#\1#' <<< "$appVersion")
+    downloadURL="https://global.download.synology.com/download/Utility/SynologyDriveClient/${appVersion}/Mac/Installer/synology-drive-client-${appShortVersion}.dmg"
+    # appNewVersion=$(appVersionP1=$(curl -sf https://archive.synology.com/download/Utility/SynologyDriveClient | grep -m 1 /download/Utility/SynologyDriveClient/ | sed "s|.*>\(.*\)-.*|\\1|") && sed 's/\(.\{0\}\)./\17/' <<< "$appVersionP1")
+    appNewVersion="$appShortVersion"
     expectedTeamID="X85BAK35Y4"
     ;;
 sysexlibrarian)
@@ -10518,6 +10524,14 @@ thonny)
     appNewVersion="$(versionFromGit thonny thonny)"
     expectedTeamID="2SA9D4CVU8"
     ;;
+thunderbird)
+    name="Thunderbird"
+    type="dmg"
+    versionKey="CFBundleShortVersionString"
+    appNewVersion=$(curl -s "https://www.thunderbird.net/en-US/thunderbird/releases/atom.xml" | xmllint --xpath "//*[local-name()='entry']/*[local-name()='title'][not(contains(text(), 'esr'))]/text()" - | head -1 | awk '{ print $2 }')
+    downloadURL="https://download.mozilla.org/?product=thunderbird-${appNewVersion}-SSL&os=osx&lang=en-US"
+    expectedTeamID="43AQ936H96"
+    ;;
 thunderbird_intl)
     # This label will try to figure out the selected language of the user,
     # and install corrosponding version of Thunderbird
@@ -10542,14 +10556,6 @@ thunderbird_intl)
     appNewVersion=$(curl -fsIL $downloadURL | awk -F releases/ '/Location:/ {split($2,a,"/"); print a[1]}')
     expectedTeamID="43AQ936H96"
     blockingProcesses=( thunderbird )
-    ;;
-thunderbird)
-    name="Thunderbird"
-    type="dmg"
-    versionKey="CFBundleShortVersionString"
-    appNewVersion=$(curl -s "https://www.thunderbird.net/en-US/thunderbird/releases/atom.xml" | xmllint --xpath "//*[local-name()='entry']/*[local-name()='title'][not(contains(text(), 'esr'))]/text()" - | head -1 | awk '{ print $2 }')
-    downloadURL="https://download.mozilla.org/?product=thunderbird-${appNewVersion}-SSL&os=osx&lang=en-US"
-    expectedTeamID="43AQ936H96"
     ;;
 thunderbirdesr)
     name="Thunderbird"
