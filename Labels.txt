@@ -842,7 +842,7 @@ salesforcecli
 santa
 sawgrassprintutility
 scaleft
-scansnaphome
+scansnaphomeix500
 scapple
 scenebuilder
 scmenu

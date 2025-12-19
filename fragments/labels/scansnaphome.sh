@@ -1,4 +1,4 @@
-scansnaphome)
+scansnaphomeix500)
     name="SSHDownloadInstaller"
     type="dmg"
     appNewVersion=$(curl "https://www.pfu.ricoh.com/global/scanners/scansnap/dl/setup/m-sshoffline-2_22_0.html?MODEL=100201" | grep "ScanSnap Home Offline Installer" | sed -n 's/.*<title>\(.*\)<\/title>.*/\1/p' | sed -n 's/.*Offline Installer \(.*\) Setup Program.*/\1/p')
