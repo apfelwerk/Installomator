@@ -349,7 +349,7 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
     fi
 fi
 VERSION="10.9.15"
-VERSIONDATE="2025-12-08"
+VERSIONDATE="2025-12-19"
 
 # MARK: Functions
 
@@ -1865,10 +1865,10 @@ adobereaderdc-update)
       printlog "Found /Applications/Adobe Acrobat Reader.app - Setting readerPath" INFO
       readerPath="/Applications/Adobe Acrobat Reader.app"
     fi
-    if ! [[ `defaults read "$readerPath/Contents/Resources/AcroLocale.plist"` ]]; then
+    if ! defaults read "$readerPath/Contents/Resources/AcroLocale.plist" >/dev/null 2>&1; then
       printlog "Missing locale data, this will cause the updater to fail.  Deleting Adobe Acrobat Reader DC.app and installing fresh." INFO
       rm -Rf "$readerPath"
-      unset $readerPath
+      unset readerPath
     fi
     if [[ -n $readerPath ]]; then
       mkdir -p "/Library/Application Support/Adobe/Acrobat/11.0"
@@ -2408,8 +2408,9 @@ archiwareb2go)
     type="pkgInDmg"
     packageID="com.archiware.presstore"
     appNewVersion=$(curl -sf https://www.archiware.com/download-p5 | grep -m 1 "ARCHIWARE P5 Version" | sed "s|.*Version \(.*\) -.*|\\1|")
-    downloadURL=$(appNrVersion=sed 's/[^0-9]//g' <<< $appNewVersion` && echo https://p5-downloads.s3.amazonaws.com/awpst"$appNrVersion"-darwin.dmg)
-    pkgName=$(appNrVersion=sed 's/[^0-9]//g' <<< $appNewVersion` && echo P5-Workstation-"$appNrVersion"-Install.pkg)
+    appNrVersion=$(sed 's/[^0-9]//g' <<< "$appNewVersion")
+    downloadURL="https://p5-downloads.s3.amazonaws.com/awpst${appNrVersion}-darwin.dmg"
+    pkgName="P5-Workstation-${appNrVersion}-Install.pkg"
     expectedTeamID="5H5EU6F965"
     # blockingProcesses=( nsd )
     ;;
@@ -2418,8 +2419,9 @@ archiwarepst)
     type="pkgInDmg"
     packageID="com.archiware.presstore"
     appNewVersion=$(curl -sf https://www.archiware.com/download-p5 | grep -m 1 "ARCHIWARE P5 Version" | sed "s|.*Version \(.*\) -.*|\\1|")
-    downloadURL=$(appNrVersion=sed 's/[^0-9]//g' <<< $appNewVersion` && echo https://p5-downloads.s3.amazonaws.com/awpst"$appNrVersion"-darwin.dmg)
-    pkgName=$(appNrVersion=sed 's/[^0-9]//g' <<< $appNewVersion` && echo P5-"$appNrVersion"-Install.pkg)
+    appNrVersion=$(sed 's/[^0-9]//g' <<< "$appNewVersion")
+    downloadURL="https://p5-downloads.s3.amazonaws.com/awpst${appNrVersion}-darwin.dmg"
+    pkgName="P5-${appNrVersion}-Install.pkg"
     expectedTeamID="5H5EU6F965"
     # blockingProcesses=( nsd )
     ;;
@@ -6421,7 +6423,7 @@ lcadvancedvpnclient)
     archiveName="LANCOM Advanced VPN Client.pkg"
     appShortVersion=$(curl -fs https://ftp.lancom.de/LANCOM-Releases/LC-VPN-Client/ | grep "macOS"| tail -1 | sed  "s|.*macOS-\(.*\)-Rel.*|\\1|")
     appNewVersion=$(sed 's/./&./1' <<< "$appShortVersion")
-    downloadURL=$(https://ftp.lancom.de/LANCOM-Releases/LC-VPN-Client/LC-Advanced-VPN-Client-macOS-"${appShortVersion}"-Rel-x86-64.dmg)
+    downloadURL="https://ftp.lancom.de/LANCOM-Releases/LC-VPN-Client/LC-Advanced-VPN-Client-macOS-${appShortVersion}-Rel-x86-64.dmg"
     blockingProcesses=( "LANCOM Advanced VPN Client" "ncprwsmac" )
     expectedTeamID="LL3KBL2M3A"
     ;;
@@ -9389,6 +9391,15 @@ scaleft)
     expectedTeamID="B7F62B65BN"
     blockingProcesses=( ScaleFT )
     ;;
+scansnaphomeix500)
+    name="SSHDownloadInstaller"
+    type="dmg"
+    appNewVersion=$(curl "https://www.pfu.ricoh.com/global/scanners/scansnap/dl/setup/m-sshoffline-2_22_0.html?MODEL=100201" | grep "ScanSnap Home Offline Installer" | sed -n 's/.*<title>\(.*\)<\/title>.*/\1/p' | sed -n 's/.*Offline Installer \(.*\) Setup Program.*/\1/p')
+    downloadURLVar1=$( echo "$appNewVersion" | sed 's/\.//g')
+    downloadURLVar2=$( echo "$appNewVersion" | sed 's/\./_/g')
+    downloadURL="https://origin.pfultd.com/downloads/ss/sshinst/m-$downloadURLVar1/MacSSHOfflineInstaller_$downloadURLVar2.dmg"
+    expectedTeamID="XW4U7W2E9L"
+    ;;
 scapple)
     name="Scapple"
     type="dmg"
@@ -10232,9 +10243,11 @@ synologyactivebackupforbusinessagent)
     type="pkgInDmg"
     packageID="com.synology.activebackup-agent"
     versionKey="CFBundleVersion"
-    downloadURL=$(appVersion=curl -sf https://archive.synology.com/download/Utility/ActiveBackupBusinessAgent | grep -m 1 /download/Utility/ActiveBackupBusinessAgent/ | sed "s|.*>\(.*\)<.*|\\1|"` && appShortVersion=`sed 's#.*-\(\)#\1#' <<< $appVersion` && echo https://global.download.synology.com/download/Utility/ActiveBackupBusinessAgent/"$appVersion"/Mac/x86_64/Synology%20Active%20Backup%20for%20Business%20Agent-"$appVersion".dmg)
-    # appNewVersion=$(appVersionP1=`curl -sf https://archive.synology.com/download/Utility/ActiveBackupBusinessAgent | grep -m 1 /download/Utility/ActiveBackupBusinessAgent/ | sed "s|.*>\(.*\)-.*|\\1|"` && sed 's/\(.\{0\}\)./\17/' <<< $appVersionP1)
-    appNewVersion=$(curl -sf https://archive.synology.com/download/Utility/ActiveBackupBusinessAgent | grep -m 1 /download/Utility/ActiveBackupBusinessAgent/ | sed "s|.*>\(.*\)<.*|\\1|" | sed "s#.*-\(\)#\1#")
+    appVersion=$(curl -sf https://archive.synology.com/download/Utility/ActiveBackupBusinessAgent | grep -m 1 /download/Utility/ActiveBackupBusinessAgent/ | sed "s|.*>\(.*\)<.*|\\1|")
+    appShortVersion=$(sed 's#.*-\(\)#\1#' <<< "$appVersion")
+    downloadURL="https://global.download.synology.com/download/Utility/ActiveBackupBusinessAgent/${appVersion}/Mac/x86_64/Synology%20Active%20Backup%20for%20Business%20Agent-${appVersion}.dmg"
+    # appNewVersion=$(appVersionP1=$(curl -sf https://archive.synology.com/download/Utility/ActiveBackupBusinessAgent | grep -m 1 /download/Utility/ActiveBackupBusinessAgent/ | sed "s|.*>\(.*\)-.*|\\1|") && sed 's/\(.\{0\}\)./\17/' <<< "$appVersionP1")
+    appNewVersion="$appShortVersion"
     expectedTeamID="X85BAK35Y4"
     ;;
 synologyassistant)
@@ -10251,9 +10264,11 @@ synologydriveclient)
     type="pkgInDmg"
     # packageID="com.synology.CloudStation"
     versionKey="CFBundleVersion"
-    downloadURL=$(appVersion=curl -sf https://archive.synology.com/download/Utility/SynologyDriveClient | grep -m 1 /download/Utility/SynologyDriveClient/ | sed "s|.*>\(.*\)<.*|\\1|"` && appShortVersion=`sed 's#.*-\(\)#\1#' <<< $appVersion` && echo https://global.download.synology.com/download/Utility/SynologyDriveClient/"$appVersion"/Mac/Installer/synology-drive-client-"${appShortVersion}".dmg)
-    # appNewVersion=$(appVersionP1=`curl -sf https://archive.synology.com/download/Utility/SynologyDriveClient | grep -m 1 /download/Utility/SynologyDriveClient/ | sed "s|.*>\(.*\)-.*|\\1|"` && sed 's/\(.\{0\}\)./\17/' <<< $appVersionP1)
-    appNewVersion=$(curl -sf https://archive.synology.com/download/Utility/SynologyDriveClient | grep -m 1 /download/Utility/SynologyDriveClient/ | sed "s|.*>\(.*\)<.*|\\1|" | sed "s#.*-\(\)#\1#")
+    appVersion=$(curl -sf https://archive.synology.com/download/Utility/SynologyDriveClient | grep -m 1 /download/Utility/SynologyDriveClient/ | sed "s|.*>\(.*\)<.*|\\1|")
+    appShortVersion=$(sed 's#.*-\(\)#\1#' <<< "$appVersion")
+    downloadURL="https://global.download.synology.com/download/Utility/SynologyDriveClient/${appVersion}/Mac/Installer/synology-drive-client-${appShortVersion}.dmg"
+    # appNewVersion=$(appVersionP1=$(curl -sf https://archive.synology.com/download/Utility/SynologyDriveClient | grep -m 1 /download/Utility/SynologyDriveClient/ | sed "s|.*>\(.*\)-.*|\\1|") && sed 's/\(.\{0\}\)./\17/' <<< "$appVersionP1")
+    appNewVersion="$appShortVersion"
     expectedTeamID="X85BAK35Y4"
     ;;
 sysexlibrarian)
