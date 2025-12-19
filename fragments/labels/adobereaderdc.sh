@@ -11,10 +11,10 @@ adobereaderdc-update)
       printlog "Found /Applications/Adobe Acrobat Reader.app - Setting readerPath" INFO
       readerPath="/Applications/Adobe Acrobat Reader.app"
     fi
-    if ! [[ `defaults read "$readerPath/Contents/Resources/AcroLocale.plist"` ]]; then
+    if ! defaults read "$readerPath/Contents/Resources/AcroLocale.plist" >/dev/null 2>&1; then
       printlog "Missing locale data, this will cause the updater to fail.  Deleting Adobe Acrobat Reader DC.app and installing fresh." INFO
       rm -Rf "$readerPath"
-      unset $readerPath
+      unset readerPath
     fi
     if [[ -n $readerPath ]]; then
       mkdir -p "/Library/Application Support/Adobe/Acrobat/11.0"
