@@ -443,7 +443,7 @@ inetclearreportsdesigner
 inkscape
 inmusicsoftwarecenter
 insomnia
-installomator
+insta360studio
 installomator_theile
 installomatormate
 instantview
