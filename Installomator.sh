@@ -5725,6 +5725,7 @@ insta360studio)
     packageName="Insta360_Studio.pkg"
     packageID="com.insta360.insta360Studio"
     expectedTeamID="UBX9CH9GDX"
+    #
     ;;
     installomator|\
 installomator_theile)
