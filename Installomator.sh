@@ -348,8 +348,8 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="10.9.16"
-VERSIONDATE="2025-12-19"
+VERSION="10.9.17"
+VERSIONDATE="2026-01-12"
 
 # MARK: Functions
 
@@ -9982,6 +9982,14 @@ starface91x)
     type="dmg"
     downloadURL=$(curl -fs "https://www.starface-cdn.de/starface/clients/mac/appcast.xml" | grep -i 'enclosure ' | grep -i 'url=' | grep -m 1 "9.1" | cut -d '"' -f 10)
     appNewVersion=$(curl -fs "https://www.starface-cdn.de/starface/clients/mac/appcast.xml" | grep -i 'enclosure ' | grep -i 'url=' | grep -m 1 "9.1" | cut -d '"' -f 4)
+    expectedTeamID="Q965D3UXEW"
+    ;;
+starface92x)
+    name="STARFACE"
+    # Downloads the latest 9.2.x version of the STARFACE Client. The client depends on the version of the PBX, so the correct version should be selected for installation
+    type="dmg"
+    downloadURL=$(curl -fs "https://www.starface-cdn.de/starface/clients/mac/appcast.xml" | grep -i 'enclosure ' | grep -i 'url=' | grep -m 1 "9.2" | cut -d '"' -f 10)
+    appNewVersion=$(curl -fs "https://www.starface-cdn.de/starface/clients/mac/appcast.xml" | grep -i 'enclosure ' | grep -i 'url=' | grep -m 1 "9.2" | cut -d '"' -f 4)
     expectedTeamID="Q965D3UXEW"
     ;;
 starface9x)
