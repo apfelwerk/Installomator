@@ -794,6 +794,7 @@ r
 raindropio
 rancherdesktop
 rapidapi
+raspberrypiimager
 rawtherapee
 raycast
 realvncondemandassist

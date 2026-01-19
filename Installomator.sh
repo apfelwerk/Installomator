@@ -348,8 +348,8 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="10.9.18"
-VERSIONDATE="2026-01-12"
+VERSION="10.9.19"
+VERSIONDATE="2026-01-19"
 
 # MARK: Functions
 
@@ -5725,7 +5725,6 @@ insta360studio)
     packageName="Insta360_Studio.pkg"
     packageID="com.insta360.insta360Studio"
     expectedTeamID="UBX9CH9GDX"
-    #
     ;;
     installomator|\
 installomator_theile)
@@ -8998,6 +8997,12 @@ rapidapi)
     downloadURL="https://paw.cloud/download"
     appNewVersion="$(curl -fsIL ${downloadURL} | grep -i ^location | cut -d '/' -f5 | awk -F '-' '{ print $2 }')"
     expectedTeamID="84599RL58A"
+    ;;
+raspberrypiimager)
+    name="Raspberry Pi Imager"
+    type="dmg"
+    downloadURL="https://downloads.raspberrypi.com/imager/imager_latest.dmg"
+    expectedTeamID="8RDZTRXE62"
     ;;
 rawtherapee)
     name="RawTherapee"
