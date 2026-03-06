@@ -1,7 +1,8 @@
 jamie)
-    name="ReEnroller"
-    type="zip"
-    downloadURL=$(downloadURLFromGit jamf ReEnroller)
-    #appNewVersion=$(versionFromGit jamf ReEnroller)
-    expectedTeamID="PS2F6S478M"
+    name="Jamie"
+    type="dmg"
+    downloadURL="$(downloadURLFromGit meetjamie releases)"
+    appNewVersion="$(versionFromGit meetjamie releases)"
+    expectedTeamID="88YHHX72GQ"
     ;;
+    
