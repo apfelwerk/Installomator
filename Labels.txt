@@ -469,6 +469,7 @@ jamfpppcutility
 jamfprintermanager
 jamfreenroller
 jamovi
+jamie
 jasp
 jcpswdmgr
 jdk17

@@ -348,8 +348,8 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="10.9.19"
-VERSIONDATE="2026-01-19"
+VERSION="10.9.20"
+VERSIONDATE="2026-03-06"
 
 # MARK: Functions
 
@@ -5916,6 +5916,13 @@ jamfreenroller)
     downloadURL=$(downloadURLFromGit jamf ReEnroller)
     #appNewVersion=$(versionFromGit jamf ReEnroller)
     expectedTeamID="PS2F6S478M"
+    ;;
+jamie)
+    name="Jamie"
+    type="dmg"
+    downloadURL="$(downloadURLFromGit meetjamie releases)"
+    appNewVersion="$(versionFromGit meetjamie releases)"
+    expectedTeamID="88YHHX72GQ"
     ;;
 jamovi)
     name="jamovi"
