@@ -5924,7 +5924,7 @@ jamie)
     appNewVersion="$(versionFromGit meetjamie releases)"
     expectedTeamID="88YHHX72GQ"
     ;;
-    jamovi)
+jamovi)
     name="jamovi"
     type="dmg"
     downloadURL="http://www.jamovi.org"

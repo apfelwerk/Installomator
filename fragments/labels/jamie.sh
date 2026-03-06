@@ -5,4 +5,3 @@ jamie)
     appNewVersion="$(versionFromGit meetjamie releases)"
     expectedTeamID="88YHHX72GQ"
     ;;
-    
