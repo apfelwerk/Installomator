@@ -348,8 +348,8 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="10.9.19"
-VERSIONDATE="2026-01-19"
+VERSION="10.9.20"
+VERSIONDATE="2026-03-16"
 
 # MARK: Functions
 
@@ -2762,7 +2762,7 @@ bimcollabzoom)
     type="pkgInDmg"
     downloadURL="https://bimcollab.com/download/ZOOM/MAC"
     appNewVersion=$(curl -fs "https://helpcenter.bimcollab.com/portal/de/kb/articles/downloads-de" | grep -o '<div>Build[^<]*</div>' | awk -F 'Build' '{print $2}' | awk -F '<' '{print $1}' | sed 's/&nbsp;&nbsp;//' | xargs)
-    expectedTeamID="Y6ZY6GR8Y3" 
+    expectedTeamID="Y6ZY6GR8Y3"
     ;;
 bitrix24)
      name="Bitrix24"
