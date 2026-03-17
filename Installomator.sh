@@ -348,8 +348,8 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="10.9.20"
-VERSIONDATE="2026-03-16"
+VERSION="10.9.21"
+VERSIONDATE="2026-03-17"
 
 # MARK: Functions
 
@@ -9827,6 +9827,13 @@ softubecentral)
     appNewVersion="$(curl -fs "https://www.softube.com/installers" | grep "mac-version=" | cut -d\" -f2 | xargs)"
     downloadURL="https://softubestorage.b-cdn.net/softubecentraldata/softubecentral/Softube%20Central-${appNewVersion}-universal.pkg"
     expectedTeamID="MQ5XL2PNWK"
+    ;;
+solibriinstaller)
+    name="Solibri Installer"
+    type="appInDmgInZip"
+    downloadURL="https://solibri-desktop-installers.s3.eu-west-1.amazonaws.com/25.12.0/Solibri_macOS.zip"
+    appNewVersion=""
+    expectedTeamID="NPJ2T27JHD"
     ;;
 solstice)
     name="Mersive Solstice"
