@@ -468,8 +468,8 @@ jamfmigrator
 jamfpppcutility
 jamfprintermanager
 jamfreenroller
-jamovi
 jamie
+jamovi
 jasp
 jcpswdmgr
 jdk17
@@ -897,6 +897,7 @@ snapgeneviewer
 soapuiopensource
 sococo
 softubecentral
+solibriinstaller
 solstice
 sonicvisualiser
 sonobus
