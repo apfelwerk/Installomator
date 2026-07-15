@@ -349,7 +349,7 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
     fi
 fi
 VERSION="10.9.28"
-VERSIONDATE="2026-07-09"
+VERSIONDATE="2026-07-15"
 
 # MARK: Functions
 
@@ -10423,12 +10423,14 @@ taskpaper)
     downloadURL="https://www.taskpaper.com/assets/app/TaskPaper.dmg"
     expectedTeamID="64A5CLJP5W"
     ;;
- teamviewerhost)
-    name="TeamViewerHost"
+teamviewer)
+    name="TeamViewer"
     type="pkgInDmg"
-    packageID="com.teamviewer.teamviewerhost"
-    pkgName="Install TeamViewerHost.app/Contents/Resources/Install TeamViewerHost.pkg"
-    downloadURL="https://download.teamviewer.com/download/TeamViewerHost.dmg"
+    # packageID="com.teamviewer.teamviewer"
+    versionKey="CFBundleShortVersionString"
+    pkgName="Install TeamViewer.app/Contents/Resources/Install TeamViewer.pkg"
+    downloadURL="https://download.teamviewer.com/download/TeamViewer.dmg"
+    appNewVersion=$(curl -fs "https://www.teamviewer.com/en/download/macos/" | grep 'data-json' | grep 'full' | awk -F '"' '{ print $4 }' | sed 's/&quot;/"/g' | plutil -extract "data.0.versionNumber" raw -o - -)
     expectedTeamID="H7UGFBUGV6"
     ;;
 teamviewerhost)
@@ -10437,7 +10439,9 @@ teamviewerhost)
     packageID="com.teamviewer.teamviewerhost"
     pkgName="Install TeamViewerHost.app/Contents/Resources/Install TeamViewerHost.pkg"
     downloadURL="https://download.teamviewer.com/download/TeamViewerHost.dmg"
+    appNewVersion=$(curl -fs "https://www.teamviewer.com/en/download/macos/" | grep "Current version" | awk -F': ' '{ print $2 }' | sed 's/<[^>]*>//g')
     expectedTeamID="H7UGFBUGV6"
+    #blockingProcessesMaxCPU="5" # Future feature
     ;;
 teamviewerhostcustom)
     name="TeamViewerHost"
