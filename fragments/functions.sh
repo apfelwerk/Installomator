@@ -602,7 +602,6 @@ mountDMG() {
     deduplicatelogs "$dmgmountOut"
 
     if [[ $dmgmountStatus -ne 0 ]] ; then
-    #if ! dmgmount=$(echo 'Y'$'\n' | hdiutil attach "$tmpDir/$archiveName" -nobrowse -readonly | tail -n 1 | cut -c 54- ); then
         cleanupAndExit 3 "Error mounting $tmpDir/$archiveName error:\n$logoutput" ERROR
     fi
     if [[ ! -e $dmgmount ]]; then
