@@ -4,8 +4,9 @@ fierycommandworkstation)
     pkgName="/OSX/CWS Wrapper.pkg"
     type="pkgInDmg"
 
-    latest=$(curl -s -H "Content-Type: text/xml; charset=utf-8" \
-        -H "SOAPAction: http://updates.efi.com/des/newSoftware" \
+    latest=$(curl --fail --location --silent --show-error \
+        -H "Content-Type: text/xml; charset=utf-8" \
+        -H 'SOAPAction: "http://updates.efi.com/des/newSoftware"' \
         -d '<?xml version="1.0" encoding="utf-8"?>
     <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -23,19 +24,26 @@ fierycommandworkstation)
             </newSoftware>
         </soap:Body>
     </soap:Envelope>' \
-    http://liveupdate.efi.com/des/hypatia.asmx | xmllint --format - 2>/dev/null |
+        "https://liveupdate.fiery.com/des/hypatia.asmx" |
+    xmllint --format - 2>/dev/null |
     awk '
     /<version>/ {
-        gsub(/<\/?version>/, "")
-        ver=$0
+        line=$0
+        sub(/^.*<version>/, "", line)
+        sub(/<\//version>.*$/, "", line)
+        gsub(/[[:space:]]/, "", line)
+        ver=line
     }
     /<location_download>/ {
-        gsub(/<\/?location_download>/, "")
-        if ($0 ~ /\.dmg$/) {
-            print ver "|" $0
+        line=$0
+        sub(/^.*<location_download>/, "", line)
+        sub(/<\//location_download>.*$/, "", line)
+        gsub(/[[:space:]]/, "", line)
+        if (line ~ /\.dmg([?&].*)?$/) {
+            print ver "|" line
         }
     }' |
-    sort -t. -k1,1n -k2,2n -k3,3n -k4,4n |
+    sort -t'|' -k1,1n -k1.2,1n -k1.3,1n -k1.4,1n |
     tail -n1)
 
     downloadURL="$(echo "$latest" | cut -d"|" -f2 | tr -d '[:space:]')"
