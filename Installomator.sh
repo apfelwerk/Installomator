@@ -348,8 +348,8 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="10.9.31"
-VERSIONDATE="2026-07-20"
+VERSION="10.9.32"
+VERSIONDATE="2026-10-06"
 
 # MARK: Functions
 
@@ -2840,6 +2840,13 @@ blitzit)
     downloadURL="$(downloadURLFromGit blitzit-hq desktop-releases)"
     appNewVersion="$(versionFromGit blitzit-hq desktop-releases)"
     expectedTeamID="29VYWQJ9TL"
+    ;;
+blueprintconversionutility)
+    name="Blueprint Conversion Utility"
+    type="dmg"
+    downloadURL="$(downloadURLFromGit jawheelr Blueprint-Conversion-Utility)"
+    appNewVersion="$(versionFromGit jawheelr Blueprint-Conversion-Utility)"
+    expectedTeamID="PU669FP3N7"
     ;;
 boop)
     name="Boop"
