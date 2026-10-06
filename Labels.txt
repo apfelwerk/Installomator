@@ -123,6 +123,7 @@ blackhole2ch
 blackhole64ch
 blender
 blitzit
+blueprintconversionutility
 boop
 boxdrive
 boxsync
